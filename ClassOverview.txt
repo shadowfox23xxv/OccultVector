@@ -1,0 +1,213 @@
+OccultVector overview of classes
+
+Game 
+	dev.OccultVector
+	Constructor takes title, width, height
+		initializes:
+			-display object
+			-adds keymanager, mousemanager to frame and canvas
+			-Assets init()
+			-handler
+			-gamecamera
+			-gamestates and sets initial gamestate
+		Game loop
+			-ticks current gamestate
+			-renders current gamestate
+		Creates graphics object each loop and clears previous screen
+
+Handler 
+	dev.OccultVector
+	Constructor takes game
+		Getters:
+			-game width
+			-game height
+			-keymanager
+			-mousemanager
+			-gamecamera
+			-game
+			-world
+
+Launcher 
+	dev.OccultVector
+	Constructor takes N/A
+		creates game object
+		calls game.start()
+
+Display 
+	dev.OccultVector.display
+	Constructor takes title, width, height
+		creates frame and canvas
+Entity
+	dev.OccultVector.entities
+	Constructor takes handler, x, y, width, height
+		defines DEFAULT_HEALTH
+		bounding box for entity
+		hurt method
+		collision detection
+		Active boolean
+
+EntityManager
+	dev.OccultVector.entities
+	Constructor takes  handler, player
+		entities arraylist of entity
+		renderSorter
+		tick() removes inactive entities and sorts list
+		render() calls render method of all entities in list
+
+Creature
+	dev.OccultVector.entities.creatures
+	Constructor takes handler, x, y, width, height
+		Defines default speed, height, and width
+		move() checks for potential entity collisons then calls moveX or moveY
+		moveX/Y checks for collision with tiles, then moves
+		collisionWithTile() checks if tile is solid
+
+Player
+	dev.OccultVector.entities.creatures
+	Constructor takes handler x, y, uses default creature width and height
+		constructor creates player animation objects
+		tick()
+			-ticks animations
+			-calls getInput()
+			-calls move with changed xMove/yMove from input
+			-centers camera on player 
+		changes current animation from depending on direction moving
+
+StaticEntity
+	dev.OccultVector.entities.statics
+	Constructor takes handler, x, y, width, height
+		passes to super(entity)
+
+Tree
+	dev.OccultVector.entities.statics
+	Constructor takes handler, x, y
+		constructor sets bounding box
+		draws self
+
+Animation
+	dev.OccultVector.gfx
+	Constructor takes speed, frames(bufferedimage[])
+		uses tick() to time animation speed and return current frame 
+
+Assets
+	dev.OccultVector.gfx
+	Constructor takes N/A(static class)
+		creates all bufferedimages and buffereimage[] from spritesheets
+
+GameCamera
+	dev.OccultVector.gfx
+	Constructor takes handlers xOffset, yOffset
+		keeps game window centered on specific entity(player)
+		avoids moving camera so as to show nonmap areas
+
+ImageLoader
+	dev.OccultVector.gfx
+	Constructor takes path
+		reads an image at path and returns it as a bufferedimage
+
+SpriteSheet
+	dev.OccultVector.gfx
+	Constructor takes sheet
+		method to crop out parts of the sprite sheet "sheet"
+
+KeyManager
+	dev.OccultVector.input
+	Constructor takes N/A
+		checks if desired key has been pressed via public boolean fields
+
+MouseManager
+	dev.OccultVector.input
+	Constructor takes N/A
+		passes mouse position and state of buttons to UIManager if set
+
+Item
+	dev.OccultVector.items
+	Constructor takes texture, name, id
+		tracks items via an array
+		creates and renders item
+
+ItemManager
+	dev.OccultVector.items
+	Constructor takes handler
+		updates all items in item array
+		renders all items in item array
+		adds item to item array
+
+State
+	dev.OccultVector.states
+	Constructor takes handler
+		defines gamestate manager(static) sets and gets current state
+
+GameState
+	dev.OccultVector.states
+	Constructor takes handler
+		constructor world object and sends it to handler
+		ticks and renders world 
+
+MenuState
+	dev.OccultVector.states
+	Constructor takes handler
+		constructor
+			-creats uimanager
+			-sets mousemanger's uimanager
+			-adds uibutton object to uimanager, implements button function
+		ticks and renders uimanager
+
+UIManager
+	dev.OccultVector.ui
+	Constructor takes handler
+		constructor creats array of uiobjects
+		add/remove uiobjects
+		ticks/renders uiobjects in array
+		sends mouse events to uiobjects in array
+
+ClickListener
+	dev.OccultVector.ui
+	Constructor takes N/A
+		interface
+		requires all uiobjects to implement onClick()
+
+UIObject
+	dev.OccultVector.ui
+	Constructor takes x, y, width, height
+		creates bounding box
+		checks if mouse is hovering over object
+
+UIImageButton
+	dev.OccultVector.ui
+	Constructor takes x, y, width, height, image, clicker(ClickListener)
+		renders button image depending on if mouse is over button
+		calls onClick as defined in lambda expression during object creation
+
+Tile
+	dev.OccultVector.tiles
+	Constructor takes texture, id
+		static methods creates array of tiles 
+		static methods create an instance of each tile and assign it to array by id
+		renders tile
+
+DirtTile(same for any tile)
+	dev.OccultVector.tiles
+	Constructor takes id
+		passes texture for specific tile type along with passed id to super(Tile)
+
+Utils
+	dev.OccultVector.utils
+	Constructor takes N/A(static)
+		creates string from file
+		converts non numeric string to number
+
+World
+	dev.OccultVector.worlds
+	Constructor takes handler, path
+		constructor
+			-creates entity manager
+			-creates item manager
+			-creates entities
+			-loads world from file at path
+			-sets player to spawn point
+		ticks itemmanager and entitymanager
+		renders tiles to their coordinates if they would be visible to the player
+		renders itemmanager
+		renders entitymanager
+		

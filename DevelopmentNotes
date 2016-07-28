@@ -1,0 +1,43 @@
+Tile game
+
+To do--------------------------------------------
+
+-New name
+	--Occult Vector?
+
+-revamp graphics
+	--render size and info
+	--sprites
+	--remove border
+		---first add keypress to exit game
+
+-alter movement control system to mouse/click based
+	--consider using a velocity factor to smooth out movement(play and 
+		camera movement speed up and slow down instead of suddenly jerking into motion)
+-research entity component system and possibly implement
+
+-fix collision to use second layer of tiles rather than 'walkable'
+	variable or employ "walkable" to second layer
+
+-change map loading to pull data from a configuration file for that map
+
+-create an event class that can effect the game world
+
+-create an eventScript class to read scripted events from a file and 
+	call the event class to fire the events
+
+-renaming class types
+	--decoration: seen but no interaction; debris, flowers, etc
+	--props: decorations with interaction; boxes, boulders, pipes, etc
+	--zones: invisible with interaction; script triggers, etc
+
+GamePlayConcepts--------------------------------------------------------------------------------------------------------------------------------
+-Enemies fleeing
+	--enemies(intelligent) too far below the player run rather than 	 	fighting
+	--set of enemies who do not fight, but always flee
+		---when killed yield small amount of resources in case player
+			 is in a bad position and needs some at little risk
+		---may lead to interesting side locations or caches of 
+			items
+
+
